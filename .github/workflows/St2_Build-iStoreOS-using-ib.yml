@@ -6,7 +6,7 @@ on:
       openwrt_board:
         description: "1、请选择设备型号"
         required: true
-        default: "s905d_s905x3_s912_s922x-ct2000"
+        default: "king3399"
         type: choice
         options:
           - a311d-oes_s922x-oes-plus_wxy-oect
@@ -247,16 +247,17 @@ on:
       openwrt_kernel:
         description: "2、请选择内核版本"
         required: true
-        default: "6.12.y"
+        default: "6.18.57"
         type: choice
         options:
           - 6.6.y
           - 6.12.y
           - 6.18.y
+          - 6.18.57
       auto_kernel:
         description: "自动使用最新内核-未匹配则自动"
         required: false
-        default: true
+        default: false
         type: boolean
       kernel_usage:
         description: "3、请选择内核标签"
@@ -314,7 +315,7 @@ jobs:
           echo "file=$ROOTFS_FILE" >> $GITHUB_OUTPUT
 
       - name: 🧱 打包iStoreOS固件
-        uses: ophub/amlogic-s9xxx-openwrt@main
+        uses: ophub/amlogic-s9xxx-openwrt@0b5c84fad4d0b271a1f132167d29ecf59054e381
         with:
           openwrt_path: ${{ steps.find_rootfs.outputs.file }}
           openwrt_board: ${{ inputs.openwrt_board }}
